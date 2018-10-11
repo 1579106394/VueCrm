@@ -17,4 +17,10 @@ public interface UserMapper {
     List<User> getUserList(Page<User> p);
 
     Integer getUserListCount(Page<User> p);
+
+    // 删除用户
+    void deleteUser(User user);
+
+    //修改用户
+    void updateUser(User u);
 }

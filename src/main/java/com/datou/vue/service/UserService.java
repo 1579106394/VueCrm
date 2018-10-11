@@ -13,4 +13,10 @@ public interface UserService {
 
     // 获取用户列表
     Page getUserList(Page<User> p);
+
+    // 删除用户
+    void deleteUser(User user) throws Exception;
+
+    //修改用户
+    void editUser(User u) throws Exception ;
 }

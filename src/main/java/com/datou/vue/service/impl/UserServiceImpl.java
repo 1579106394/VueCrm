@@ -35,6 +35,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void editUser(User u) throws Exception {
+        // 补全属性：userUpdateTime
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年-MM月-dd日 HH:mm:ss");
+        String time = sdf.format(new Date());
+        u.setUserUpdateTime(time);
+
+        userMapper.updateUser(u);
+
+    }
+
+    @Override
     public Page getUserList(Page<User> p) {
         //补全参数：
         //1.当前页已经传递过来，每页显示条数也传递过来了。
@@ -55,4 +66,10 @@ public class UserServiceImpl implements UserService {
 
         return p;
     }
+
+    @Override
+    public void deleteUser(User user) throws Exception {
+        userMapper.deleteUser(user);
+    }
+
 }

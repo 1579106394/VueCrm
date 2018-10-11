@@ -5,10 +5,7 @@ import com.datou.vue.service.UserService;
 import com.datou.vue.utils.VueResult;
 import com.datou.vue.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -32,6 +29,23 @@ public class UserController {
     }
 
     /**
+     * 修改用户
+     */
+
+    @RequestMapping(value = "/api/user/editUser", method = RequestMethod.POST)
+    public VueResult editUser(@RequestBody User u) {
+
+        try {
+            userService.editUser(u);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return VueResult.build(400, "修改用户失败！");
+        }
+
+        return VueResult.ok();
+    }
+
+    /**
      * 用户列表
      */
     @RequestMapping(value = "/api/user/userList", method = RequestMethod.POST)
@@ -41,6 +55,25 @@ public class UserController {
         Page page = userService.getUserList(p);
 
         return VueResult.ok(page);
+    }
+
+    /**
+     * 删除用户
+     */
+    @RequestMapping(value = "/api/user/deleteUser/{userId}", method = RequestMethod.GET)
+    public VueResult deleteUser(@PathVariable String userId) {
+
+        try {
+            User user = new User();
+            user.setUserId(userId);
+            userService.deleteUser(user);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return VueResult.build(400, "删除失败！");
+        }
+
+
+        return VueResult.ok();
     }
 
 }

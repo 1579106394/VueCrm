@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CORSInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("preHandler，可以作为拦截器使用");
+        // System.out.println("preHandler，可以作为拦截器使用");
         String origin = request.getHeader("Origin");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT, PATCH");
@@ -23,12 +23,12 @@ public class CORSInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("postHandler，可以作为过滤器使用");
+        // System.out.println("postHandler，可以作为过滤器使用");
 
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        System.out.println("afterCompletion，可以用来处理异常");
+        // System.out.println("afterCompletion，可以用来处理异常");
     }
 }

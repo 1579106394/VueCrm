@@ -2,22 +2,19 @@ package com.datou.vue.pojo;
 
 import java.io.Serializable;
 
-/*
-CREATE TABLE `user` (
-  `user_id` varchar(36) NOT NULL,
-  `user_created_time` varchar(50) NOT NULL,
-  `user_update_time` varchar(50) NOT NULL,
-  `user_name` varchar(20) NOT NULL,
-  `user_telephone` bigint(15) NOT NULL,
-  `user_age` int(10) NOT NULL,
-  `user_role` int(2) NOT NULL DEFAULT '1' COMMENT '所属部门',
-  `user_sex` int(2) NOT NULL COMMENT '1男2女',
-  `user_delete` int(2) NOT NULL DEFAULT '1' COMMENT '1未删除，2删除',
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
+/**
+ * CREATE TABLE `user` (
+ *   `user_id` varchar(36) NOT NULL,
+ *   `user_created_time` varchar(50) NOT NULL,
+ *   `user_update_time` varchar(50) NOT NULL,
+ *   `user_name` varchar(20) NOT NULL,
+ *   `user_telephone` bigint(15) NOT NULL,
+ *   `user_age` int(10) NOT NULL,
+ *   `user_role` int(2) NOT NULL DEFAULT '1' COMMENT '所属部门',
+ *   `user_sex` int(2) NOT NULL COMMENT '1男2女',
+ *   `user_delete` int(2) NOT NULL DEFAULT '1' COMMENT '1未删除，2删除',
+ *   PRIMARY KEY (`user_id`)
+ * ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  */
 
 public class User implements Serializable {
@@ -27,7 +24,8 @@ public class User implements Serializable {
     private String userName;
     private Long userTelephone;
     private Integer userAge;
-    private Integer userRole; // 暂时是integer
+//    private Integer userRole; // 暂时是integer
+    private Role userRole;
     private Integer userSex;
     private Integer userDelete;
 
@@ -39,11 +37,11 @@ public class User implements Serializable {
         this.userAge = userAge;
     }
 
-    public Integer getUserRole() {
+    public Role getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(Integer userRole) {
+    public void setUserRole(Role userRole) {
         this.userRole = userRole;
     }
 

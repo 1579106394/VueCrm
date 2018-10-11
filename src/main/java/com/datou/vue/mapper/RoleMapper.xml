@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.datou.vue.mapper.RoleMapper">
+
+    <resultMap id="Role" type="role">
+        <id property="roleId" column="role_id"/>
+        <result property="roleCreatedTime" column="role_created_time"/>
+        <result property="roleUpdateTime" column="role_update_time"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDelete" column="role_delete"/>
+    </resultMap>
+
+    <!--添加部门-->
+    <insert id="addRole" parameterType="role">
+    insert into role values
+    (
+      #{roleId}, #{roleCreatedTime}, #{roleUpdateTime},
+      #{roleName}, 1
+    )
+    </insert>
+
+    <!--查询所有部门-->
+    <select id="roleList" resultMap="Role">
+        select * from role where role_delete = 1
+    </select>
+
+    <!--修改部门-->
+    <update id="updateRole" parameterType="role">
+        update role set
+        role_name = #{roleName}
+        where role_id = #{roleId}
+    </update>
+
+    <!--删除部门-->
+    <update id="deleteRole" parameterType="role">
+        update role SET
+        role_delete = 0
+        where role_id = #{roleId}
+  </update>
+
+</mapper>
