@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.datou.vue.mapper.UserMapper" >
+
+  <resultMap id="User" type="user">
+    <id property="userId" column="user_id" />
+    <result property="userCreatedTime" column="user_created_time" />
+    <result property="userUpdateTime" column="user_update_time" />
+    <result property="userName" column="user_name" />
+    <result property="userTelephone" column="user_telephone" />
+    <result property="userAge" column="user_age" />
+    <result property="userRole" column="user_role" />
+    <result property="userSex" column="user_sex" />
+    <result property="userDelete" column="user_delete" />
+  </resultMap>
+
+  <!--添加用户-->
+  <insert id="addUser" parameterType="user">
+    insert into user values
+    (
+      #{userId}, #{userCreatedTime}, #{userUpdateTime}, #{userName}, #{userTelephone},
+      #{userAge}, #{userRole}, #{userSex}, 1
+    )
+  </insert>
+
+  <!--获取用户列表-->
+  <select id="getUserList" parameterType="page" resultMap="User">
+    select * from user where user_delete = 1
+    <if test="params.orderName != '' and params.orderName != null">
+      order by ${params.orderName} ${params.order}
+    </if>
+
+    limit #{index}, #{currentCount}
+  </select>
+
+  <!--获取用户总数-->
+  <select id="getUserListCount" parameterType="page" resultType="Integer">
+    select count(user_id) from user where user_delete = 1
+    <if test="params.orderName != '' and params.orderName != null">
+      order by ${params.orderName} ${params.order}
+    </if>
+  </select>
+
+</mapper>
