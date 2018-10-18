@@ -21,6 +21,19 @@
             <mvc:mapping path="/**"/>
             <bean class="com.datou.vue.interceptor.CORSInterceptor"/>
         </mvc:interceptor>
+
     </mvc:interceptors>
+
+    <!-- 视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+        <property name="proxyTargetClass" value="true" />
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    </bean>
 
 </beans>

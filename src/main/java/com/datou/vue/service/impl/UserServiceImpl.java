@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteUserFromRole(User u) throws Exception {
+        userMapper.deleteUserFromRole(u);
+    }
+
+    @Override
     public Page getUserList(Page<User> p) {
         //补全参数：
         //1.当前页已经传递过来，每页显示条数也传递过来了。
@@ -61,7 +66,7 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userMapper.getUserList(p);
         p.setList(userList);
         //总页数= 总条数/ 每页显示数据
-        Integer totalPage = (int)Math.ceil(totalCount / currentCount);
+        Integer totalPage = (int) Math.ceil(totalCount / currentCount);
         p.setTotalPage(totalPage);
 
         return p;

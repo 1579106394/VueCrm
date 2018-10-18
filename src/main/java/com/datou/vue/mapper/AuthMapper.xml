@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.datou.vue.mapper.AuthMapper">
+
+    <resultMap id="Auth" type="auth">
+        <id property="authId" column="auth_id"/>
+        <result property="authName" column="auth_name" />
+        <result property="authCode" column="auth_code" />
+        <result property="authPage" column="auth_page" />
+        <result property="authDir" column="auth_dir" />
+        <result property="authZindex" column="auth_zindex" />
+        <result property="authParentId" column="auth_parent_id" />
+    </resultMap>
+    
+    <!--查询所有权限列表-->
+    <select id="getAllAuthList" resultMap="Auth">
+        select * from auth
+    </select>
+
+
+</mapper>

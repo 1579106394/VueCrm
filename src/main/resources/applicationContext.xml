@@ -39,4 +39,44 @@
     <!--开启注解事务-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
+
+    <!--配置shiro-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!--注入安全管理器对象-->
+        <property name="securityManager" ref="securityManager"/>
+        <!--<property name="loginUrl" value="/login.html"/>--> <!--登录页面-->
+        <!--<property name="unauthorizedUrl" value="/error.html"/>--> <!--权限不足跳转-->
+
+        <property name="filterChainDefinitions">
+            <value>
+                /userLogin = anon
+                /api/auth/allAuthList=anon
+
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+    <!--配置安全管理器对象-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="vueRealm"/>
+    </bean>
+
+    <!--自己的realm对象-->
+    <bean id="vueRealm" class="com.datou.vue.realm.VueRealm">
+
+    </bean>
+
+
+
+
+    <!-- 连接redis单机版 -->
+    <bean id="jedisClientPool" class="com.datou.vue.jedis.JedisClientPool">
+        <property name="jedisPool" ref="jedisPool"></property>
+    </bean>
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="host" value="localhost"/>
+        <constructor-arg name="port" value="6379"/>
+    </bean>
+
 </beans>

@@ -17,6 +17,9 @@ public interface UserService {
     // 删除用户
     void deleteUser(User user) throws Exception;
 
-    //修改用户
+    // 修改用户
     void editUser(User u) throws Exception ;
+
+    // 将员工从部门中剔除
+    void deleteUserFromRole(User u) throws Exception;
 }

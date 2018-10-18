@@ -4,6 +4,7 @@ import com.datou.vue.pojo.User;
 import com.datou.vue.service.UserService;
 import com.datou.vue.utils.VueResult;
 import com.datou.vue.vo.Page;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ public class UserController {
     /**
      * 新增用户功能
      */
+    @RequiresPermissions("user-add")
     @RequestMapping(value = "/api/user/addUser", method = RequestMethod.POST)
     public VueResult addUser(@RequestBody User u) {
 
@@ -31,8 +33,8 @@ public class UserController {
     /**
      * 修改用户
      */
-
-    @RequestMapping(value = "/api/user/editUser", method = RequestMethod.POST)
+    @RequiresPermissions("user-edit")
+    @RequestMapping(value = "/api/user/editUser", method = RequestMethod.PUT)
     public VueResult editUser(@RequestBody User u) {
 
         try {
@@ -48,6 +50,7 @@ public class UserController {
     /**
      * 用户列表
      */
+    @RequiresPermissions("user-list")
     @RequestMapping(value = "/api/user/userList", method = RequestMethod.POST)
     public VueResult getUserList(@RequestBody Page<User> p) {
 
@@ -60,7 +63,8 @@ public class UserController {
     /**
      * 删除用户
      */
-    @RequestMapping(value = "/api/user/deleteUser/{userId}", method = RequestMethod.GET)
+    @RequiresPermissions("user-delete")
+    @RequestMapping(value = "/api/user/deleteUser/{userId}", method = RequestMethod.DELETE)
     public VueResult deleteUser(@PathVariable String userId) {
 
         try {

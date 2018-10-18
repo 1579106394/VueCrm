@@ -4,6 +4,8 @@
 
     <resultMap id="User" type="user">
         <id property="userId" column="user_id"/>
+        <result property="username" column="username" />
+        <result property="password" column="password" />
         <result property="userCreatedTime" column="user_created_time"/>
         <result property="userUpdateTime" column="user_update_time"/>
         <result property="userName" column="user_name"/>
@@ -31,7 +33,11 @@
 
     <!--获取用户列表-->
     <select id="getUserList" parameterType="page" resultMap="User">
-        select * from user u, role r where u.user_delete = 1 and u.user_role = r.role_id
+        select * from user u left join role r on u.user_role = r.role_id
+        where u.user_delete = 1
+        <if test="params.roleId != '' and params.roleId != null">
+            and r.role_id = #{params.roleId}
+        </if>
         <if test="params.orderName != '' and params.orderName != null">
             order by ${params.orderName} ${params.order}
         </if>
@@ -41,7 +47,11 @@
 
     <!--获取用户总数-->
     <select id="getUserListCount" parameterType="page" resultType="Integer">
-        select count(u.user_id) from user u, role r where user_delete = 1 and u.user_role = r.role_id
+        select count(u.user_id) from user u left join role r on u.user_role = r.role_id
+        where u.user_delete = 1
+        <if test="params.roleId != '' and params.roleId != null">
+            and r.role_id = #{params.roleId}
+        </if>
         <if test="params.orderName != '' and params.orderName != null">
             order by ${params.orderName} ${params.order}
         </if>
@@ -54,6 +64,13 @@
         where user_id = #{userId}
   </update>
 
+    <!--从部门中剔除员工-->
+    <update id="deleteUserFromRole" parameterType="user">
+        update user set
+        user_role = 0
+        where user_id = #{userId}
+    </update>
+
     <!--编辑用户-->
     <update id="updateUser" parameterType="user">
         update user set
@@ -65,5 +82,13 @@
         user_sex=#{userSex}
         where user_id = #{userId}
     </update>
+
+
+
+
+    <!--根据用户名查询-->
+    <select id="getUserByUsername" parameterType="String" resultMap="User">
+        select * from user where username=#{username}
+    </select>
 
 </mapper>

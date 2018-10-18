@@ -21,6 +21,12 @@ public interface UserMapper {
     // 删除用户
     void deleteUser(User user);
 
-    //修改用户
+    // 修改用户
     void updateUser(User u);
+
+    // 从部门中将该员工剔除
+    void deleteUserFromRole(User u);
+
+    // 根据用户名查询用户
+    User getUserByUsername(String username);
 }
